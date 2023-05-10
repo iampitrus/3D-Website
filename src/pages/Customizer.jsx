@@ -94,9 +94,11 @@ function Customizer() {
         break;
       case "stylishShirt":
         state.isFullTexture = !activeFilterTab[tabName];
+        break;
       default:
         state.isFullTexture = false;
         state.isLogoTexture = true;
+        break;
     }
     // After setting the state, activeFilterTab is updated
 
@@ -138,7 +140,6 @@ function Customizer() {
                 {generateTabContent()}
               </div>
             </div>
-            {/* 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 */}
           </motion.div>
           <motion.div
             className="absolute z-10 top-5 right-5"

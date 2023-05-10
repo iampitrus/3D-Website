@@ -15,7 +15,7 @@ function AiPicker({ prompt, setPrompt, generatingImg, handleSubmit }) {
           <CustomButton
             type="outline"
             title="Asking AI..."
-            customStyles="text-xs"
+            customStyles="text-xs cursor-wait"
           />
         ) : (
           <>
