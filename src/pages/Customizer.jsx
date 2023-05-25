@@ -22,16 +22,14 @@ function Customizer() {
   const [file, setFile] = useState("");
   const [prompt, setPrompt] = useState("");
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [activeFilterTab, setActiveFilterTab] = useState("");
-  const [activeEditorTab, setActiveEditorTab] = useState({
+  const [activeFilterTab, setActiveFilterTab] = useState({
     logoShirt: true,
     stylishShirt: false,
   });
-  const prevActiveTab = useRef();
 
   // Show tab content depending on the activeTab
   const generateTabContent = () => {
-    switch (activeEditorTab) {
+    switch (activeFilterTab) {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
@@ -73,7 +71,6 @@ function Customizer() {
       alert(error);
     } finally {
       setGeneratingImg(false);
-      setActiveFilterTab("");
     }
   };
 
@@ -82,27 +79,27 @@ function Customizer() {
 
     // update the state
     state[decalType.stateProperty] = result;
-    if (!activeEditorTab[decalType.filterTab]) {
-      handleActiveEditorTab(decalType.filterTab);
+    if (!activeFilterTab[decalType.filterTab]) {
+      handleActiveFilterTab(decalType.filterTab);
     }
   };
 
-  const handleActiveEditorTab = (tabName) => {
+  const handleActiveFilterTab = (tabName) => {
     switch (tabName) {
       case "logoShirt":
-        state.isLogoTexture = !activeEditorTab[tabName];
+        state.isLogoTexture = !activeFilterTab[tabName];
         break;
       case "stylishShirt":
-        state.isFullTexture = !activeEditorTab[tabName];
+        state.isFullTexture = !activeFilterTab[tabName];
         break;
       default:
         state.isFullTexture = false;
         state.isLogoTexture = true;
         break;
     }
-    // After setting the state, activeEditorTab is updated
+    // After setting the state, activeFilterTab is updated
 
-    setActiveEditorTab((prevState) => {
+    setActiveFilterTab((prevState) => {
       return {
         ...prevState,
         [tabName]: !prevState[tabName],
@@ -113,7 +110,6 @@ function Customizer() {
   const readFile = (type) => {
     reader(file).then((result) => {
       handleDecals(type, result);
-      setActiveFilterTab("");
     });
   };
 
@@ -133,7 +129,7 @@ function Customizer() {
                     key={tab.name}
                     tab={tab}
                     handleClick={() => {
-                      setActiveEditorTab(tab.name);
+                      setActiveFilterTab(tab.name);
                     }}
                   />
                 ))}
@@ -161,9 +157,12 @@ function Customizer() {
                 key={tab.name}
                 tab={tab}
                 isFilterTab
-                isActiveTab={activeEditorTab[tab.name]}
+                isActiveTab={activeFilterTab[tab.name]}
                 handleClick={() => {
-                  handleActiveEditorTab(tab.name);
+                  handleActiveFilterTab(tab.name);
+                  if (tab.name == "download") {
+                    downloadCanvasToImage();
+                  }
                 }}
               />
             ))}
