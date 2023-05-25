@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSnapshot } from "valtio";
 
@@ -22,8 +22,8 @@ function Customizer() {
   const [file, setFile] = useState("");
   const [prompt, setPrompt] = useState("");
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [activeEditorTab, setActiveEditorTab] = useState("");
-  const [activeFilterTab, setActiveFilterTab] = useState({
+  const [activeFilterTab, setActiveFilterTab] = useState("");
+  const [activeEditorTab, setActiveEditorTab] = useState({
     logoShirt: true,
     stylishShirt: false,
   });
@@ -31,7 +31,7 @@ function Customizer() {
 
   // Show tab content depending on the activeTab
   const generateTabContent = () => {
-    switch (activeFilterTab) {
+    switch (activeEditorTab) {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
@@ -73,7 +73,7 @@ function Customizer() {
       alert(error);
     } finally {
       setGeneratingImg(false);
-      setActiveEditorTab("");
+      setActiveFilterTab("");
     }
   };
 
@@ -82,27 +82,27 @@ function Customizer() {
 
     // update the state
     state[decalType.stateProperty] = result;
-    if (!activeFilterTab[decalType.filterTab]) {
-      handleActiveFilterTab(decalType.filterTab);
+    if (!activeEditorTab[decalType.filterTab]) {
+      handleActiveEditorTab(decalType.filterTab);
     }
   };
 
-  const handleActiveFilterTab = (tabName) => {
+  const handleActiveEditorTab = (tabName) => {
     switch (tabName) {
       case "logoShirt":
-        state.isLogoTexture = !activeFilterTab[tabName];
+        state.isLogoTexture = !activeEditorTab[tabName];
         break;
       case "stylishShirt":
-        state.isFullTexture = !activeFilterTab[tabName];
+        state.isFullTexture = !activeEditorTab[tabName];
         break;
       default:
         state.isFullTexture = false;
         state.isLogoTexture = true;
         break;
     }
-    // After setting the state, activeFilterTab is updated
+    // After setting the state, activeEditorTab is updated
 
-    setActiveFilterTab((prevState) => {
+    setActiveEditorTab((prevState) => {
       return {
         ...prevState,
         [tabName]: !prevState[tabName],
@@ -113,7 +113,7 @@ function Customizer() {
   const readFile = (type) => {
     reader(file).then((result) => {
       handleDecals(type, result);
-      setActiveEditorTab("");
+      setActiveFilterTab("");
     });
   };
 
@@ -133,7 +133,7 @@ function Customizer() {
                     key={tab.name}
                     tab={tab}
                     handleClick={() => {
-                      setActiveFilterTab(tab.name);
+                      setActiveEditorTab(tab.name);
                     }}
                   />
                 ))}
@@ -161,9 +161,9 @@ function Customizer() {
                 key={tab.name}
                 tab={tab}
                 isFilterTab
-                isActiveTab={activeFilterTab[tab.name]}
+                isActiveTab={activeEditorTab[tab.name]}
                 handleClick={() => {
-                  handleActiveFilterTab(tab.name);
+                  handleActiveEditorTab(tab.name);
                 }}
               />
             ))}
