@@ -25,6 +25,7 @@ function Shirt() {
         material={materials.lambert1}
         material-roughness={1}
         dispose={null}
+        rotation={[snap.verticalView, snap.horizontalView, 0]}
       >
         {snap.isFullTexture && (
           <Decal

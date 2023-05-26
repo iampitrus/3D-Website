@@ -1,10 +1,7 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSnapshot } from "valtio";
-
-import config from "../config/config";
 import state from "../store";
-import { download } from "../assets";
 import { downloadCanvasToImage, reader } from "../config/helpers";
 import { EditorTabs, FilterTabs, DecalTypes } from "../config/constants";
 import { fadeAnimation, slideAnimation } from "../config/motion";
@@ -13,6 +10,7 @@ import {
   ColorPicker,
   CustomButton,
   FilePicker,
+  Slider,
   Tab,
 } from "../components";
 
@@ -138,15 +136,30 @@ function Customizer() {
             </div>
           </motion.div>
           <motion.div
-            className="absolute z-10 top-5 right-5"
+            className="absolute top-[8%] right-0 left-0 w-full flex justify-center"
+            {...slideAnimation("down")}
+          >
+            <Slider orientation={"horizontal"} />
+          </motion.div>
+          <motion.div
+            className="absolute  z-10 top-5 right-5"
             {...fadeAnimation}
           >
             <CustomButton
               type={"filled"}
               title={"Go Back"}
-              handleClick={() => (state.intro = true)}
+              handleClick={() => {
+                state.intro = true;
+                state.horizontalView = state.verticalView = 0;
+              }}
               customStyles="w-fit px-4 py-2.5 font-bold text-sm"
             />
+          </motion.div>
+          <motion.div
+            className="absolute top-0 bottom-0 h-full flex flex-col justify-center right-[8%] "
+            {...slideAnimation("right")}
+          >
+            <Slider orientation={"vertical"} />
           </motion.div>
           <motion.div
             className="filtertabs-container"
