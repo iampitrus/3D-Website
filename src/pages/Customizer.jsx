@@ -46,6 +46,7 @@ function Customizer() {
     }
   };
 
+  // Calling our AI backend
   const handleSubmit = async (type) => {
     if (!prompt) return alert("Please enter a prompt! ");
 
@@ -127,7 +128,11 @@ function Customizer() {
                     key={tab.name}
                     tab={tab}
                     handleClick={() => {
-                      setActiveFilterTab(tab.name);
+                      if (activeFilterTab == tab.name) {
+                        setActiveFilterTab("");
+                      } else {
+                        setActiveFilterTab(tab.name);
+                      }
                     }}
                   />
                 ))}

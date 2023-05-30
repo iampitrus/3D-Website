@@ -4,7 +4,8 @@ function AiPicker({ prompt, setPrompt, generatingImg, handleSubmit }) {
   return (
     <div className="aipicker-container">
       <textarea
-        placeholder="Ask AI..."
+        placeholder="AI currently not available..."
+        disabled
         value={prompt}
         rows="5"
         onChange={(e) => setPrompt(e.target.value)}
