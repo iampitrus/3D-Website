@@ -96,8 +96,8 @@ function Customizer() {
         state.isLogoTexture = true;
         break;
     }
-    // After setting the state, activeFilterTab is updated
 
+    // After setting the state, activeFilterTab is updated
     setActiveFilterTab((prevState) => {
       return {
         ...prevState,
@@ -106,10 +106,15 @@ function Customizer() {
     });
   };
 
-  const readFile = (type) => {
-    reader(file).then((result) => {
-      handleDecals(type, result);
-    });
+  const readFile = (type, tab) => {
+    if (tab === "upload") {
+      reader(file).then((result) => {
+        console.log(result);
+        handleDecals(type, result);
+      });
+    } else {
+      handleDecals(type, file);
+    }
   };
 
   return (

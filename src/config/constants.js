@@ -5,6 +5,18 @@ import {
   logoShirt,
   stylishShirt,
   download,
+  pattern1,
+  pattern2,
+  pattern3,
+  pattern4,
+  github,
+  tailwindcss,
+  react,
+  twitter,
+  pattern5,
+  pattern6,
+  pattern7,
+  pattern8,
 } from "../assets";
 
 export const EditorTabs = [
@@ -47,3 +59,18 @@ export const DecalTypes = {
     filterTab: "stylishShirt",
   },
 };
+
+export const GalleryImages = [
+  { name: "pattern", src: pattern1 },
+  { name: "pattern", src: pattern2 },
+  { name: "pattern", src: pattern3 },
+  { name: "pattern", src: pattern4 },
+  { name: "pattern", src: pattern5 },
+  { name: "pattern", src: pattern6 },
+  { name: "pattern", src: pattern7 },
+  { name: "pattern", src: pattern8 },
+  { name: "logo", src: github },
+  { name: "logo", src: tailwindcss },
+  { name: "logo", src: react },
+  { name: "logo", src: twitter },
+];
